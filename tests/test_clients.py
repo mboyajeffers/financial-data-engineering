@@ -1,14 +1,11 @@
 """Tests for USGS, Open-Meteo, and World Bank clients."""
 
-from unittest.mock import patch, MagicMock
-from datetime import datetime
+from unittest.mock import patch
 
-import pandas as pd
-import pytest
 
-from collector.clients.usgs import USGSClient
-from collector.clients.open_meteo import OpenMeteoClient
-from collector.clients.world_bank import WorldBankClient
+from src.extractors.usgs import USGSClient
+from src.extractors.open_meteo import OpenMeteoClient
+from src.extractors.world_bank import WorldBankClient
 
 
 class TestUSGSClient:

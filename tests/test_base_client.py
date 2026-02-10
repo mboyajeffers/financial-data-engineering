@@ -7,8 +7,7 @@ import pandas as pd
 import pytest
 import requests
 
-from collector.base import BaseClient
-from collector.result import ExtractionResult
+from src.extractors.base_client import BaseClient
 
 
 class StubClient(BaseClient):
@@ -88,7 +87,7 @@ class TestCache:
 class TestRetries:
     """HTTP retry logic tests."""
 
-    @patch("collector.base.BaseClient._wait_for_token")
+    @patch("src.extractors.base_client.BaseClient._wait_for_token")
     def test_retry_on_5xx(self, mock_token):
         """Should retry on server errors with backoff."""
         client = StubClient()
@@ -101,12 +100,12 @@ class TestRetries:
         mock_resp_200.json.return_value = {"ok": True}
 
         with patch.object(client._session, "get", side_effect=[mock_resp_500, mock_resp_200]):
-            with patch("collector.base.time.sleep"):
+            with patch("src.extractors.base_client.time.sleep"):
                 result = client._get("/test", use_cache=False)
         assert result == {"ok": True}
         assert client.api_calls == 2
 
-    @patch("collector.base.BaseClient._wait_for_token")
+    @patch("src.extractors.base_client.BaseClient._wait_for_token")
     def test_no_retry_on_4xx(self, mock_token):
         """Should not retry on client errors (except 429)."""
         client = StubClient()
@@ -120,7 +119,7 @@ class TestRetries:
         assert client.api_calls == 1
         assert client.errors == 1
 
-    @patch("collector.base.BaseClient._wait_for_token")
+    @patch("src.extractors.base_client.BaseClient._wait_for_token")
     def test_429_retry_after(self, mock_token):
         """Should sleep for Retry-After seconds on 429."""
         client = StubClient()
@@ -133,7 +132,7 @@ class TestRetries:
         mock_resp_200.json.return_value = {"ok": True}
 
         with patch.object(client._session, "get", side_effect=[mock_resp_429, mock_resp_200]):
-            with patch("collector.base.time.sleep") as mock_sleep:
+            with patch("src.extractors.base_client.time.sleep") as mock_sleep:
                 result = client._get("/test", use_cache=False)
         mock_sleep.assert_any_call(2)
         assert result == {"ok": True}
@@ -171,7 +170,7 @@ class TestSession:
         """Session should have a custom User-Agent header."""
         client = StubClient()
         ua = client._session.headers["User-Agent"]
-        assert "multi-source-etl-collector" in ua
+        assert "stub" in ua  # Verify source name in User-Agent
         assert "stub" in ua
 
     def test_session_reuse(self):

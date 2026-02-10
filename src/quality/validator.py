@@ -5,11 +5,11 @@ DataValidator orchestrates rule evaluation, collects results,
 and produces a ValidationReport.
 """
 
-from typing import List, Optional
+from typing import List
 
 import pandas as pd
 
-from .rules import Rule, RuleSet, RuleResult
+from .rules import Rule, RuleSet
 from .report import ValidationReport
 
 

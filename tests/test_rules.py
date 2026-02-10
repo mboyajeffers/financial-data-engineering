@@ -2,14 +2,9 @@
 Tests for validation rules.
 """
 
-import sys
-from pathlib import Path
-
 import pandas as pd
 
-sys.path.insert(0, str(Path(__file__).parent.parent / 'src'))
-
-from quality.rules import (
+from src.quality.rules import (
     CompletenessRule,
     UniquenessRule,
     RangeRule,

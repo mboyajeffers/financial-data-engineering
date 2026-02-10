@@ -18,7 +18,7 @@ from typing import Any, Dict, List, Optional
 
 import pandas as pd
 
-from .base_transformer import BaseTransformer, TransformationResult
+from .base_transformer import TransformationResult
 
 
 @dataclass
@@ -87,7 +87,6 @@ class StarSchemaBuilder:
         """
         import os
         import time
-        from .base_transformer import BaseTransformer
 
         start = time.time()
         tables_created = []
@@ -146,7 +145,7 @@ class StarSchemaBuilder:
                 continue
             fact_df = self._built_tables[fact_name]
             for dim_key in (fact_schema.dimension_keys or []):
-                dim_name = dim_key.replace('_key', '').replace('fact_', '')
+                dim_key.replace('_key', '').replace('fact_', '')
                 for dname, dim_df in self._built_tables.items():
                     if dim_key in dim_df.columns and dim_key in fact_df.columns:
                         orphans = set(fact_df[dim_key]) - set(dim_df[dim_key])

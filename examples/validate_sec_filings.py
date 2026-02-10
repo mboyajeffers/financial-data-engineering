@@ -25,7 +25,6 @@ from quality import (
     DataValidator,
     CompletenessRule,
     UniquenessRule,
-    RangeRule,
     PatternRule,
     CustomRule,
 )

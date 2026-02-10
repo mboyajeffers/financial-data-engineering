@@ -81,7 +81,7 @@ class BaseClient(ABC):
         # Session pooling
         self._session = requests.Session()
         self._session.headers.update({
-            "User-Agent": f"multi-source-etl-collector/{self.source_name}",
+            "User-Agent": f"financial-data-engineering/{self.source_name}",
             "Accept": "application/json",
         })
 
@@ -102,7 +102,7 @@ class BaseClient(ABC):
         self._timings: list = []
 
         # Logger
-        self._log = logging.getLogger(f"collector.{self.source_name}")
+        self._log = logging.getLogger(f"extractor.{self.source_name}")
 
     # --- Rate limiter ---------------------------------------------------------
 

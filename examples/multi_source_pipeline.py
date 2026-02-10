@@ -13,14 +13,12 @@ import sys
 from datetime import datetime, timedelta, timezone
 from pathlib import Path
 
-sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
+sys.path.insert(0, str(Path(__file__).resolve().parent.parent))
 
-from collector import (
-    MultiSourceCollector,
-    USGSClient,
-    OpenMeteoClient,
-    WorldBankClient,
-)
+from src.extractors.usgs import USGSClient
+from src.extractors.world_bank import WorldBankClient
+from src.extractors.open_meteo import OpenMeteoClient
+from src.pipeline.orchestrator import MultiSourceCollector
 
 
 # Countries with their capital-city coordinates

@@ -1,15 +1,15 @@
 """Tests for MultiSourceCollector orchestrator."""
 
-from unittest.mock import patch, MagicMock
+from unittest.mock import MagicMock
 from datetime import datetime
 
 import pandas as pd
 import pytest
 
-from collector.collector import MultiSourceCollector
-from collector.result import ExtractionResult
-from collector.clients.usgs import USGSClient
-from collector.clients.open_meteo import OpenMeteoClient
+from src.pipeline.orchestrator import MultiSourceCollector
+from src.extractors.result import ExtractionResult
+from src.extractors.usgs import USGSClient
+from src.extractors.open_meteo import OpenMeteoClient
 
 
 class TestRegistration:

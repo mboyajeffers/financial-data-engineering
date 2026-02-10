@@ -6,12 +6,12 @@ page-number pagination with metadata-driven page counts.
 """
 
 from datetime import datetime, timezone
-from typing import Dict, List, Optional
+from typing import List, Optional
 
 import pandas as pd
 
-from ..base import BaseClient
-from ..result import ExtractionResult
+from .base_client import BaseClient
+from .result import ExtractionResult
 
 
 class WorldBankClient(BaseClient):

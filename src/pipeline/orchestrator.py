@@ -5,12 +5,12 @@ Registers multiple API clients, runs extractions, and
 aggregates telemetry across all sources.
 """
 
-from typing import Any, Dict, List, Optional
+from typing import Any, Dict, List
 
 import pandas as pd
 
-from .base import BaseClient
-from .result import ExtractionResult
+from src.extractors.base_client import BaseClient
+from src.extractors.result import ExtractionResult
 
 
 class MultiSourceCollector:
@@ -18,7 +18,7 @@ class MultiSourceCollector:
 
     Usage::
 
-        from collector import MultiSourceCollector, USGSClient, WorldBankClient
+        from src.pipeline.orchestrator import MultiSourceCollector
 
         c = MultiSourceCollector()
         c.register("usgs", USGSClient())

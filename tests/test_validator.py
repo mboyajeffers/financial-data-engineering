@@ -2,12 +2,7 @@
 Tests for the DataValidator orchestrator.
 """
 
-import sys
-from pathlib import Path
-
-sys.path.insert(0, str(Path(__file__).parent.parent / 'src'))
-
-from quality import DataValidator, CompletenessRule, UniquenessRule, RangeRule
+from src.quality import DataValidator, CompletenessRule, UniquenessRule, RangeRule
 
 
 class TestDataValidator:

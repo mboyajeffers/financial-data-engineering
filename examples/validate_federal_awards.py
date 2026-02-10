@@ -163,7 +163,7 @@ def main():
     print(top.to_string(index=False))
 
     # Show data profile
-    print(f"\nData Profile:")
+    print("\nData Profile:")
     print(f"  Total awards:      {len(df):,}")
     print(f"  Unique recipients: {df['recipient_name'].nunique():,}")
     print(f"  Unique agencies:   {df['awarding_agency'].nunique():,}")

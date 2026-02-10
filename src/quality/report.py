@@ -5,8 +5,8 @@ Structures rule results into a human-readable report with
 pass/fail counts, failure details, and summary statistics.
 """
 
-from dataclasses import dataclass, field
-from typing import Dict, List, Optional
+from dataclasses import dataclass
+from typing import Dict, List
 
 from .rules import RuleResult
 

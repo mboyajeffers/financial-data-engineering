@@ -10,7 +10,7 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
-from collector import WorldBankClient
+from src.extractors.world_bank import WorldBankClient
 
 
 def main():
@@ -22,8 +22,8 @@ def main():
     print("World Bank Economic Indicators — G10 Economies")
     print("=" * 60)
     print(f"Countries:  {', '.join(countries)}")
-    print(f"Indicators: GDP per capita, Population")
-    print(f"Years:      2018-2023")
+    print("Indicators: GDP per capita, Population")
+    print("Years:      2018-2023")
     print()
 
     result = client.extract(

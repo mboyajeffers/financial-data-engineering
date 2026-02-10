@@ -12,7 +12,7 @@ from pathlib import Path
 # Allow running from project root
 sys.path.insert(0, str(Path(__file__).resolve().parent.parent / "src"))
 
-from collector import USGSClient
+from src.extractors.usgs import USGSClient
 
 
 def main():
@@ -25,7 +25,7 @@ def main():
     print("USGS Earthquake Collection — Last 30 Days")
     print("=" * 60)
     print(f"Date range: {start:%Y-%m-%d} to {end:%Y-%m-%d}")
-    print(f"Minimum magnitude: 4.5")
+    print("Minimum magnitude: 4.5")
     print()
 
     result = client.extract(
