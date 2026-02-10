@@ -1,0 +1,16 @@
+services:
+  earthquakes:
+    build: .
+    command: python examples/collect_earthquakes.py
+
+  economic:
+    build: .
+    command: python examples/collect_economic_indicators.py
+
+  multi-source:
+    build: .
+    command: python examples/multi_source_pipeline.py
+
+  test:
+    build: .
+    command: pytest tests/ -v --tb=short
