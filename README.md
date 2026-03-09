@@ -1,6 +1,6 @@
 # Financial Data Engineering
 
-Production ETL pipelines processing **4.3M+ rows** across 8 industries using public APIs and Kimball star schema modeling.
+Production ETL pipelines with **3 implemented extractors**, Kimball star schema modeling, and a data quality framework with **68 tests**. Extensible to any REST API.
 
 [![CI](https://github.com/mboyajeffers/financial-data-engineering/actions/workflows/ci.yml/badge.svg)](https://github.com/mboyajeffers/financial-data-engineering/actions)
 
@@ -12,7 +12,7 @@ End-to-end data engineering: API extraction, dimensional modeling, data quality 
 
 ```
 Public APIs ──> Extractors ──> Transformers ──> Quality Gates ──> Parquet + Reports
-   (8)          (rate-limited    (Kimball star     (6 rule types)    (4.3M rows)
+   (3+)         (rate-limited    (Kimball star     (6 rule types)    (columnar)
                  + cached)        schema)
 ```
 
@@ -20,27 +20,21 @@ Public APIs ──> Extractors ──> Transformers ──> Quality Gates ──
 
 | Metric | Value |
 |--------|-------|
-| Total rows | 4.3M+ |
-| Industry verticals | 8 |
-| Data sources | 8 public APIs |
-| Star schema tables | 30+ (dim_/fact_) |
-| Report cadences | Weekly, Monthly, Quarterly |
-| Branded reports | 23 PDFs |
+| Implemented extractors | 3 (Open-Meteo, USGS, World Bank) |
+| Extraction patterns | Array, offset, and page-number pagination |
+| Star schema tables | dim_/fact_ pairs per pipeline |
+| Data quality rules | 6 types, 68 tests |
+| Extensibility | Any REST API via BaseClient |
 
-## Data Sources
+## Implemented Data Sources
 
-| Source | API | Data | Rows |
-|--------|-----|------|------|
-| Open-Meteo | ERA5 Archive | Hourly weather, 30 US cities, 10 years | 2.6M |
-| SEC EDGAR | XBRL | Corporate filings, financial facts | 570K |
-| Yahoo Finance | Market Data | Equity OHLCV, 200 tickers, 5 years | 529K |
-| FRED | St. Louis Fed | 50 macro series (GDP, rates, labor) | 368K |
-| Open-Meteo | Forecast | Daily weather, 30 cities | 109K |
-| Steam + SteamSpy | Gaming | Player counts, ownership, revenue | 37K |
-| ESPN | Sports | Standings across 4 leagues | 21K |
-| CoinGecko | Crypto | Market caps, volumes, prices | 21K |
+| Source | Extractor | Pagination Pattern | Auth |
+|--------|-----------|-------------------|------|
+| Open-Meteo | `open_meteo.py` | Array (latitude/longitude batches) | None |
+| USGS | `usgs.py` | Offset-based | None |
+| World Bank | `world_bank.py` | Page-number | None |
 
-No API keys required for Open-Meteo, Yahoo, Steam, ESPN, or CoinGecko. FRED requires a free key from [fred.stlouisfed.org](https://fred.stlouisfed.org/docs/api/api_key.html).
+All three extractors hit free, public APIs — no API keys required. The `BaseClient` framework supports adding any REST API with rate limiting, caching, and retry logic built in.
 
 ## Pipeline Patterns
 
@@ -156,7 +150,7 @@ The `reports/samples/` directory contains example output — automated PDF repor
 - `10_Executive_Summary.pdf` — Cross-vertical KPI rollup
 - `Monthly_01_Finance_Intelligence.pdf` — Month-over-month trend analysis
 
-Full report set: 9 weekly + 9 monthly + 5 quarterly = 23 branded reports.
+Full report set available in [financial-market-analysis](https://github.com/mboyajeffers/financial-market-analysis).
 
 ## Project Structure
 
@@ -199,6 +193,16 @@ python examples/collect_earthquakes.py
 python examples/multi_source_pipeline.py
 ```
 
+## ML Integration
+
+The extraction and transformation patterns in this repo support downstream ML workflows:
+
+- **Feature engineering** — star schema fact tables serve as feature stores for model training
+- **Time-series modeling** — extractors pull historical data suitable for GARCH, momentum classification, and anomaly detection
+- **Walk-forward backtesting** — pipeline orchestrator supports sequential data windows for unbiased model evaluation
+
+ML models built on this data foundation: see [Data-Engineering-Portfolio](https://github.com/mboyajeffers/Data-Engineering-Portfolio).
+
 ## Tech Stack
 
 | Layer | Tools |
@@ -214,7 +218,7 @@ python examples/multi_source_pipeline.py
 
 ## Author
 
-**Mboya Jeffers** — Data Engineer
+**Mboya Jeffers** — Data & ML Engineer
 
 - [GitHub](https://github.com/mboyajeffers)
 - [LinkedIn](https://linkedin.com/in/mboyajeffers)
