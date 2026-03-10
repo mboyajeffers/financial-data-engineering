@@ -221,4 +221,4 @@ ML models built on this data foundation: see [Data-Engineering-Portfolio](https:
 **Mboya Jeffers** — Data & ML Engineer
 
 - [GitHub](https://github.com/mboyajeffers)
-- [LinkedIn](https://linkedin.com/in/mboyajeffers)
+- [LinkedIn](https://linkedin.com/in/mboya-jeffers-6377ba325)
